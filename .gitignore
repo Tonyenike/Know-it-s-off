@@ -5,3 +5,4 @@ constants.pyc
 myClient/build/
 __pycache__/
 start
+.idea/

@@ -1,10 +1,12 @@
-import threading
-from main import db
 from models import *
 import time
 from datetime import datetime
-from automated_email import send_email
-from automated_text import send_message
+from messaging.automated_email import send_email
+from messaging.automated_text import send_message
+
+
+# This is a background process which checks the database periodically to see if an automated alert needs to be sent to
+# notify the user that an appliance has been left on.
 
 def check_message_queue():
     print("Checking messages...")

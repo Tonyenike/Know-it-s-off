@@ -20,8 +20,14 @@ export default class Login extends Component {
 	     .then(
 		     (result) =>{this.setState({postLoading: false}); 
 			       this.props.history.push("/appliances"); })
-	event.preventDefault();
-     };
+
+
+           .catch( (error) => {
+         //most likely cause of error here is failed authentication, so redirect
+         alert("Log in unsuccessful. Please try again.");
+         this.setState({postLoading: false});
+               	event.preventDefault();
+      })}
 handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value

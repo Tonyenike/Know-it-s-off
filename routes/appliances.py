@@ -29,6 +29,7 @@ def appliances_get_post():
         db.session.close()
         return jsonify(myobj), 201
     elif request.method == 'GET':
+        print(current_user)
         results = db.session.query(Appliance, Scout).outerjoin(Scout, Appliance.id == Scout.appliance_id).all()
         myList = []
         for row in results:
