@@ -2,8 +2,12 @@
 
 Directions for use:
 
+#Prereq's for setting up
+Make sure you have yarn installed on your computer before you start. If you installed yarn through npm, make sure you run the command `yarn` first to finish set up.
 
 First, you need to check your database settings in `database_config.py` and define your database login credentials in `constants.py`. We have created an example of `constants.py` with the `example-constants.py` file.
+
+You can setup an OSU database through your ONID account, everyone gets one.
 
 `python3 -m pip install -r requirements.txt --user`
 
@@ -13,9 +17,12 @@ edit .env with the appropriate baseURL address for the api server
 and run 
 `yarn build`
 
-Then you can go back out of the `myClient` directory and run the server
+To run the server, type
+`yarn start`
 
-`python3 main.py`
+If you get some PATH problems, you may have to edit the package.json file.
+https://stackoverflow.com/questions/60234640/typeerror-err-invalid-arg-type-the-path-argument-must-be-of-type-string-re
+
 
 ## Yarn
 
