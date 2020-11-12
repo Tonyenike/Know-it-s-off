@@ -3,18 +3,18 @@
 Directions for use:
 
 #Prereq's for setting up
-Make sure you have yarn installed on your computer before you start. If you installed yarn through npm, make sure you run the command `yarn` first to finish set up.
+Make sure you have yarn installed on your computer before you start.
 
 First, you need to check your database settings in `database_config.py` and define your database login credentials in `constants.py`. We have created an example of `constants.py` with the `example-constants.py` file.
-
-You can setup an OSU database through your ONID account, everyone gets one.
 
 `python3 -m pip install -r requirements.txt --user`
 
 then go into the `myClient` directory 
 edit .env with the appropriate baseURL address for the api server
 
-and run 
+If you installed yarn through npm, make sure you run the command `yarn` first to finish set up.
+
+Then run
 `yarn build`
 
 To run the server, type
