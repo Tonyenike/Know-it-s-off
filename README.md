@@ -39,3 +39,4 @@ which is where all statically served files are sent from.
 ## License
 
 [MIT License](https://github.com/Tonyenike/Know-its-off/blob/master/LICENSE.md)
+>>>>>>> 2403d4ed2908a12d2ea9cb927160b266a848d8a4

@@ -1,0 +1,73 @@
+html {
+  height: 100%;
+  background-color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  background-color: #fff;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+@keyframes load8 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.CircularProgressbar {
+   width: 5rem!important;
+   position: relative;
+   right: 1rem;
+}
+.tile {
+   margin: 1rem .5rem 0rem .5rem;
+}
+.card-header {
+   /*padding-left: 0!important;*/
+   display: flex;
+   /*height: 30%;*/
+   max-height: 40%;
+}
+.card-title-scout {
+   width: 100%;
+   margin: auto;
+}
+.card-body {
+   /*display: block;*/
+   height: 100%
+}
+/*.card-text-appliance {
+   
+}*/
+.card-text-status {
+   font-size: 2rem;
+   margin: 0;
+   position: absolute;
+   bottom: 3%;
+   left: 5%;
+}
+.card-button {
+   width: 100px;
+   position: absolute;
+   bottom: 3%;
+   right: 5%;
+   margin: 0;
+   /*transform: translate(90%, 0);*/
+}
