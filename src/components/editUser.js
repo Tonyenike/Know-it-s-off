@@ -24,7 +24,7 @@ export default class EditUser extends Component {
 
    //Get users appliances, add the names to the select form element
    componentDidMount() {
-      axiosBaseURL.get("/users/current")  //can put anything in for an id here, it will always return the current_user
+      axiosBaseURL.get("/user/current")  //can put anything in for an id here, it will always return the current_user
       .then((result) => {
          this.setState({
             loading: false,
@@ -39,10 +39,11 @@ export default class EditUser extends Component {
          this.setState({loading: false, error: true});
          if(error.response){
             this.setState({error_response: error.response.status});
-            if(error.response.data === "not authorized"){ this.setState({redirect: "/"}) }
+            if(error.response.data === "not authorized"){ this.setState({redirect: "/home"}) }
             else if (error.response.data){console.log(error.response.data)}
          }
       })
+      console.log(this.state)
    }
 
    updateUser = (event) => {
@@ -96,11 +97,6 @@ export default class EditUser extends Component {
    };
    handlePassChange = (event) => {
       this.setState({[event.target.name]: event.target.value})
-   }
-   handlePhoneChange = (event) => {
-      this.setState({
-         current_user: {...this.state.current_user,[event.target.name]:parseInt(event.target.value)}
-      })
    }
 
 	render(){

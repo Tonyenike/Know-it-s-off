@@ -8,6 +8,7 @@ export default class addDevice extends Component {
     super(props);
     this.state = {
       myDevice: {
+         id: "400",
 		   appliance_name: "My Appliance",
          device_state: "1", 
          device_battery: "100.0",
@@ -34,7 +35,7 @@ export default class addDevice extends Component {
          var myList = [];
          var i;
          for(i in this.state.usersDevices) {
-            myList.push([this.state.usersDevices[i].appliance_name, this.state.usersDevices[i].id])
+            myList.push([this.state.usersDevices[i].appliance_name, this.state.usersDevices[i].id, this.state.usersDevices[i].device_battery, this.state.usersDevices[i].timestamp, this.state.usersDevices[i].device_state])
          }
          this.setState({applianceNames: myList})
       })
@@ -77,10 +78,7 @@ export default class addDevice extends Component {
             <div className="d-flex justify-content-center m-5">
                <CircleSpinner size={60} color="#686769" loading={this.state.loading} />
             </div>)
-		}
-      let options = this.state.applianceNames.map((data) =>
-         <option key={data[1]} value={data[1]}>{data[0]}</option>
-      );
+      }
 		return(
 <div className="m-5">
 <h3>New Device</h3>

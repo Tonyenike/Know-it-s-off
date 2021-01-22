@@ -21,6 +21,7 @@ export default class Login extends Component {
 		     (result) =>{this.setState({postLoading: false}); 
 			      this.props.history.push("/home"); })
         .catch((error)=>{this.setState({postLoading:false});
+        alert("Invalid username and password");
         console.log(error);})
 	event.preventDefault();
      };

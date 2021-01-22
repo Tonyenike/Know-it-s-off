@@ -7,13 +7,11 @@ import {
   LOADING_USER,
   MARK_NOTIFICATIONS_READ
 } from '../types';
-import axiosBaseURL from '../axios.js'
-;
-import axios from 'axios';
+import axiosBaseURL from '../axiosBaseURL.js';
 
 export const loginUser = (userData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  axios
+  axiosBaseURL
     .post('/login', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
@@ -31,7 +29,7 @@ export const loginUser = (userData, history) => (dispatch) => {
 
 export const signupUser = (newUserData, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
-  axios
+  axiosBaseURL
     .post('/signup', newUserData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
@@ -49,13 +47,13 @@ export const signupUser = (newUserData, history) => (dispatch) => {
 
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('FBIdToken');
-  delete axiosBaseURL.defaults.headers.common['Authorization'];
+  delete axiosBaseURL.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED });
 };
 
 export const getUserData = () => (dispatch) => {
   dispatch({ type: LOADING_USER });
-  axios
+  axiosBaseURL
     .get('/user')
     .then((res) => {
       dispatch({
@@ -68,7 +66,7 @@ export const getUserData = () => (dispatch) => {
 
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: LOADING_USER });
-  axios
+  axiosBaseURL
     .post('/user/image', formData)
     .then(() => {
       dispatch(getUserData());
@@ -78,7 +76,7 @@ export const uploadImage = (formData) => (dispatch) => {
 
 export const editUserDetails = (userDetails) => (dispatch) => {
   dispatch({ type: LOADING_USER });
-  axios
+  axiosBaseURL
     .post('/user', userDetails)
     .then(() => {
       dispatch(getUserData());
@@ -87,7 +85,7 @@ export const editUserDetails = (userDetails) => (dispatch) => {
 };
 
 export const markNotificationsRead = (notificationIds) => (dispatch) => {
-  axios
+  axiosBaseURL
     .post('/notifications', notificationIds)
     .then((res) => {
       dispatch({
@@ -100,5 +98,5 @@ export const markNotificationsRead = (notificationIds) => (dispatch) => {
 const setAuthorizationHeader = (token) => {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem('FBIdToken', FBIdToken);
-  axios.defaults.headers.common['Authorization'] = FBIdToken;
+  axiosBaseURL.headers.common['Authorization'] = FBIdToken;
 };

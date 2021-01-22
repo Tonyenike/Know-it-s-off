@@ -1,8 +1,11 @@
 from app import db
+from sqlalchemy import inspect
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+import base64
+from datetime import datetime, timedelta
+import os
 ##############
 # This file defines each table in the database. For example, the Appliance table
 # has several columns -- the name of the appliance, its ID, the status of the appliance,
@@ -17,6 +20,11 @@ class Device(db.Model):
     device_battery = db.Column(db.Float, nullable=True) # May change from float later
     timestamp = db.Column(db.DateTime, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    #To dictionary functions are used to format the data to make it easier to JSONIFY    
+    def to_dict(self):
+        return {c.key: getattr(self, c.key)
+            for c in inspect(self).mapper.column_attrs}
 
     def __repr__(self):
         return '<Device {}>'.format(self.id)

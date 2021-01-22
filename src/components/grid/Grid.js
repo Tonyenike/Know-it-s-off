@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Grid = styled.div`
   width: 100%;
-  //padding: 0px 10px 0px 10px;
+  padding: 0px 10px 0px 10px;
   display: flex;
   justify-content: start;
   flex-wrap: wrap;

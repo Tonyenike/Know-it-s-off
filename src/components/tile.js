@@ -5,28 +5,28 @@ import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {buildStyles} from 'react-circular-progressbar';
 import {CircleSpinner} from 'react-spinners-kit';
-import axiosBaseURL from '../axios.js'
-;
+import axiosBaseURL from '../axios.js';
 
 export default class Tile extends Component {
    state={
-      device_id: this.props.id,
-      scout_battery: this.props.scout_battery,
+      device_id: this.props.device_id,
+      device_battery: this.props.device_battery,
       appliance_name: this.props.appliance_name,
-      device_state: this.props.device_state,
+      device_state: this.props.state,
+      timestamp: this.props.timestamp, 
       statusText: "OFF",
       background: "light",
       loading: true
    }
 
    componentDidMount() {
-      if(this.props.device_state){
+      if(this.props.state){
          this.setState({
             background: "success",
             statusText: "ON"
          })
       }
-      else if(!this.props.device_state){
+      else if(!this.props.state){
          this.setState({background: "danger"})
       }
       this.setState({loading: false})
@@ -51,14 +51,15 @@ export default class Tile extends Component {
       return(
          <Card bg={this.state.background} className="tile text-center col">
             <Card.Header>
-               <CircularProgressbar value={this.state.scout_battery} maxValue={1} text={`${this.state.scout_battery}%`} styles={buildStyles({textSize: '2.2rem',textColor:'#000'})}/>
-               <Card.Title className="card-title-scout">{this.state.device_id}</Card.Title>
+               <CircularProgressbar value={this.state.device_battery} maxValue={1} text={`${this.state.device_battery}%`} styles={buildStyles({textSize: '2.2rem',textColor:'#000'})}/>
+               <Card.Title className="card-title-device">{this.state.appliance_name}</Card.Title>
             </Card.Header>
             <Card.Body>
-               <Card.Title className="card-title-appliance">{this.state.device_id}({this.state.appliance_name})</Card.Title>
+               <Card.Title className="card-title-status">{this.state.statusText}</Card.Title>
                {/*<Card.Text className="card-text-type">{this.state.appliance_name}</Card.Text>*/}
-               <Card.Text className="card-text-device_state">{this.state.statusText}</Card.Text>
-               <Link className="card-button btn btn-primary text-wrap" to={"/scout/"+this.state.device_id}>Edit Scout</Link>
+               <Card.Text className="card-text-device_state">{this.state.state}</Card.Text>
+               <Card.Text className="card-text-timestamp">Last Seen: {this.state.timestamp}</Card.Text>
+               <Link className="card-button btn btn-primary text-wrap" to={"/device/"+this.state.device_id}>Details</Link>
                {/*I was thinking about using a dropdown here instead so that you can delete a scout without having
                to go to the edit scout page, which may not load if the appliance of the scout doesnt exist
                <DropdownButton device_id="dropdown-button" title="Dropdown button">

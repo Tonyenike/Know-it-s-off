@@ -28,7 +28,6 @@ export default class MyNavbar extends Component {
   <div className={`${classOne}`} id="navbarNavAltMarkup">
     <div className="navbar-nav">
       <Link to="/home" className="nav-item nav-link active">Home </Link>
-      <Link to="/devices" className="nav-item nav-link">My Devices</Link>
       <Link to="/device/new" className="nav-item nav-link">New Device</Link>
       <Link to="/user/edit" className="nav-item nav-link">Edit User</Link>
       <Link to="/logout" className="nav-item nav-link">Logout</Link>

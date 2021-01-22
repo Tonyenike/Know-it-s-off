@@ -1,6 +1,8 @@
 import React, { Component, createContext } from "react";
 import Cookies from 'js-cookie';
 
+import { GridContextProvider } from "react-grid-dnd";
+
 // Helper functions
 
 function move(array, oldIndex, newIndex) {
