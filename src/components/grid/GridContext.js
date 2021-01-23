@@ -1,7 +1,7 @@
 import React, { Component, createContext } from "react";
 import Cookies from 'js-cookie';
 
-import { GridContextProvider } from "react-grid-dnd";
+//import { GridContextProvider } from "react-grid-dnd";
 
 // Helper functions
 
@@ -19,9 +19,9 @@ function moveElement(array, index, offset) {
   return move(array, index, newIndex);
 }
 
-function findIndexofItems(i, items_copy, cookie_items) {
+/*function findIndexofItems(i, items_copy, cookie_items) {
   return items_copy.findIndex(item => item.id === cookie_items[i].id) 
-}
+}*/
 
 // Context
 

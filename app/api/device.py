@@ -15,7 +15,7 @@ device_schema = {
                     "appliance_name": {"type": "string", "maxlength": 64, "nullable": True}, 
                     "device_state": {"type": "integer", "default": False, "nullable": False},
                     "device_battery": {"type": "float", "nullable": True}, # float change position reminder
-                    "timestamp": {"type": "datetime", "nullable": False}
+                    "timestamp": {"type": "datetime", "nullable": True}
 }
 
 v = Validator(device_schema, allow_unknown=True)
@@ -57,7 +57,6 @@ def device_get_patch_delete_by_id(id):
 @bp.route('/devices', methods=['GET'])
 @login_required
 def getUserDevices():
-    print("current_user is:", current_user.get_id())
     results = Device.query.filter_by(user_id = current_user.get_id())
     myList = []
     for row in results:
@@ -84,12 +83,12 @@ def device_get_post():
             abort(400, description=v.errors)
         request.get_json().pop("id", None)
         new_device = Device(**request.get_json())
+        new_device.user_id = current_user.get_id()
         db.session.add(new_device)
         db.session.commit()
-        add_user_device(new_device.id)
-        myobj = new_device.to_dict()
+        returnValue = jsonify(new_device.to_dict())
         db.session.close()
-        return jsonify(myobj), 201
+        return returnValue, 201
     elif request.method == 'GET':
         #Select *
         #From Device
@@ -99,12 +98,3 @@ def device_get_post():
             myList.append(row.to_dict())
         db.session.close()
         return jsonify(myList), 200
-
-#Adds a new user device to the database.
-def add_user_device(device_id):
-    user_id = current_user.get_id()
-    new_user_device.user_id = user_id
-    new_user_device.device_id = device_id
-    db.session.add(new_user_device)
-    db.session.commit()
-    return jsonify(new_user_device.to_dict())

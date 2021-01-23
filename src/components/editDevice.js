@@ -14,7 +14,7 @@ export default class editDevice extends Component {
             appliance_name: "My Appliance",
             device_state: 1, 
             device_battery: 100.0,
-            timestamp: "2019-04-30T08:59:00.000Z",
+            //timestamp: "2019-04-30T08:59:00.000Z",
             id: 1,
          },
 	   loading: true,
@@ -32,7 +32,7 @@ export default class editDevice extends Component {
 					appliance_name: result.data.appliance_name, 
 					device_state: result.data.device_state, 
 					device_battery: result.data.device_battery, 
-					timestamp: result.data.timestamp
+					//timestamp: result.data.timestamp
             },
             loading: false
 			});
@@ -60,11 +60,15 @@ export default class editDevice extends Component {
       })
 	   event.preventDefault();
    };
+
    deleteDevice = (event) => {
       const r = window.confirm("Do you really want to delete this, it will be permanent!");
       if(r === true){
-         axiosBaseURL.delete("/device/"+this.state.id)
-         .then((result) => {this.setState({redirect: dbString})})
+         axiosBaseURL.delete(dbString)
+         .then((result) => {
+            this.setState({redirect: '/home', loading: false});
+            alert("Device Removed Successfully!");
+         })
          .catch((error) => {
             this.setState({ error: true });
             if(error.response){
@@ -76,7 +80,7 @@ export default class editDevice extends Component {
    };
    handleChangeDevice = (event) => { 
       this.setState({
-         myDevice : {...this.state.myDevice, [event.target.appliance_name]: event.target.value}
+         myDevice : {...this.state.myDevice, [event.target.name]: event.target.value}
       });
    };
 
@@ -97,7 +101,7 @@ export default class editDevice extends Component {
 <form>
    <div className="form-group">
       <label>Appliance Name</label>
-      <input className="form-control" appliance_name="appliance_name" id="inputDeviceName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
+      <input className="form-control" name="appliance_name" id="inputDeviceName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
    </div>
 
    <button onClick={this.updateDevice} className="btn btn-success">Update<CircleSpinner size={20} color="#3BBCE5" loading={this.state.loading} /></button>

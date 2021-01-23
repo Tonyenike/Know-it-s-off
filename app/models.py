@@ -25,6 +25,10 @@ class Device(db.Model):
     def to_dict(self):
         return {c.key: getattr(self, c.key)
             for c in inspect(self).mapper.column_attrs}
+            
+    def update(self, myDict):
+        for key, value in myDict.items():
+            setattr(self, key, value)
 
     def __repr__(self):
         return '<Device {}>'.format(self.id)
@@ -40,21 +44,13 @@ class User(UserMixin, db.Model):
     token = db.Column(db.String(32), index=True, unique=True)
     token_expiration = db.Column(db.DateTime)
 
-    def to_dict(self, include_email=False):
-        data = {
-            'id': self.id,
-            'username': self.username
-        }
-        if include_email:
-            data['email'] = self.email
-        return data
+    def to_dict(self):
+        return {c.key: getattr(self, c.key)
+            for c in inspect(self).mapper.column_attrs}
 
-    def from_dict(self, data, new_user=False):
-        for field in ['username', 'email']:
-            if field in data:
-                setattr(self, field, data[field])
-        if new_user and 'password' in data:
-            self.set_password(data['password'])
+    def update(self, myDict):
+        for key, value in myDict.items():
+            setattr(self, key, value)
 
     def set_password(self, password):
         self.password = generate_password_hash(password)

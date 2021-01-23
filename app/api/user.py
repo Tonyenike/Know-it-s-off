@@ -19,15 +19,18 @@ v = Validator(user_schema, allow_unknown=True)
 @bp.route('/user/<id>', methods=['GET', 'PATCH', 'DELETE'])
 @login_required
 def user_get_patch_delete_by_id(id):
-    print("We got here")
     if current_user is None:
         db.session.close()
         abort(404, description="This user does not exist")
     #Returns the specific User
     if request.method == 'GET':
-        returnValue = jsonify(current_user.to_dict())
+        #returnValue = jsonify(current_user.to_dict())
+        myList = []
+        test = User.query.filter_by(id = current_user.get_id())
+        for row in test:
+            myList.append(row.to_dict())
         db.session.close()
-        return returnValue, 200
+        return jsonify(myList), 200
     #Updates the user password
     elif request.method == 'PATCH':
         obj = request.get_json()
@@ -35,7 +38,8 @@ def user_get_patch_delete_by_id(id):
             abort(400, description=v.errors)
         # Note that this update function is specified in models.py
         if "password" in obj:
-            current_user.set_password(obj['password'])
+            myPassword = obj.pop('password', None)
+            current_user.set_password(myPassword)
         current_user.update(obj) 
         db.session.commit()
         returnValue = jsonify(current_user.to_dict())
@@ -43,8 +47,8 @@ def user_get_patch_delete_by_id(id):
         return returnValue, 200
     #Removes the user and its devices from the database
     elif request.method == 'DELETE':
-        userDevice = Device.query.filter_by(user_id=current_user.get_id()).all()
-        for o in userDevice:
+        user = User.query.filter_by(id = current_user.get_id())
+        for o in user:
             db.session.delete(o)
             db.session.flush()
         db.session.delete(current_user)
@@ -78,7 +82,6 @@ def login():
 def user_post():
     if request.method == 'POST':
         obj = request.get_json()
-        print(obj)
         if not v.validate(obj):
             abort(400, description=v.errors)
         myPassword = obj.pop('password', None)
