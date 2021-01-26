@@ -5,7 +5,6 @@ import {CircularProgressbar} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {buildStyles} from 'react-circular-progressbar';
 import {CircleSpinner} from 'react-spinners-kit';
-import axiosBaseURL from '../axios.js';
 
 export default class Tile extends Component {
    state={
@@ -31,15 +30,6 @@ export default class Tile extends Component {
       }
       this.setState({loading: false})
    }
-   deleteScout = (event) => {
-      //need to confirm first
-      const r = window.confirm("Do you really want to delete this, it will be permanent!");
-      if(r === true){
-         axiosBaseURL.delete("/device/"+this.state.device_id)
-         .then((result) => {this.setState({redirect:"/"})})
-         .catch((error) => {this.setState({ error: true });})
-      }
-   };
 
    render(){
       if(this.state.loading) {

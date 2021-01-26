@@ -64,12 +64,8 @@ def login():
             abort(400, description=v.errors)
         user_data = request.get_json()
         user_email = user_data['email']
-        #SELECT *
-        #FROM User
-        #WHERE User.email = user_email
         check_user = User.query.filter_by(email=user_email).first()
         if not check_user or not check_user.check_password(user_data['password']):
-            #error handler, if login is not successful
             abort(403, description="The credentials you entered were incorrect")
         result = login_user(check_user, force=True)
         db.session.close()
@@ -78,6 +74,7 @@ def login():
         else:
             return 'Unauthorized', 401
 #Adds a new user
+#TODO add username
 @bp.route('/user', methods=['POST'])
 def user_post():
     if request.method == 'POST':
