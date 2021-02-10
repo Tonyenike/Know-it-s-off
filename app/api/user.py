@@ -1,5 +1,6 @@
 from flask import request, abort, jsonify, Response, redirect
 from flask_login import login_required, current_user, login_user
+from flask_cors import cross_origin
 from cerberus import Validator
 from app.models import User, Device
 from app.api import bp
@@ -74,7 +75,6 @@ def login():
         else:
             return 'Unauthorized', 401
 #Adds a new user
-#TODO add username
 @bp.route('/user', methods=['POST'])
 def user_post():
     if request.method == 'POST':

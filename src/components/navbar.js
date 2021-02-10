@@ -16,24 +16,27 @@ export default class MyNavbar extends Component {
 
 	render(){
       const collapsed = this.state.collapsed;
-      const classOne = collapsed ? 'collapse navbar-collapse' : 'collapse nav-bar collapse show';
+      const classOne = collapsed ? 'collapse navbar-collapse justify-content-between' : 'collapse nav-bar collapse show justify-content-between';
       const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right';
 		return(
 
-<nav className="navbar navbar-expand-lg navbar-light bg-info">
+<nav className="navbar bg-primary navbar-expand-lg navbar-dark">
   <Link to="/home" className="navbar-brand">Know It's Off</Link>
   <button onClick={this.toggleNavbar} className={`${classTwo}`} type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className={`${classOne}`} id="navbarNavAltMarkup">
     <div className="navbar-nav">
-      <Link to="/home" className="nav-item nav-link active">Home </Link>
-      <Link to="/device/new" className="nav-item nav-link">New Device</Link>
-      <Link to="/user/edit" className="nav-item nav-link">Edit User</Link>
-      <Link to="/logout" className="nav-item nav-link">Logout</Link>
+      <Link to="/device/new" className="nav-item nav-link text-light">New Device</Link>
+      <Link to="/user/edit" className="nav-item nav-link text-light">Edit User</Link>
     </div>
-  </div>
+    <div className="navbar-nav">
+         <Link to="/logout" className="nav-item nav-link text-light">Logout</Link>
+    </div>
+   </div>
 </nav>
+
+
 		)
 	}
 }

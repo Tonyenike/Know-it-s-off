@@ -1,16 +1,22 @@
-import os
 from flask import Flask
+from flask_assistant import Assistant, tell
+from flask_ngrok import run_with_ngrok
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_cors import CORS
 
 #Creation of app and database
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/nfs/stak/users/titswort/capstone/build', static_url_path='/')
+#run_with_ngrok(app)
 app.config.from_object(Config)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
+
+#Create our Assistant
+assist = Assistant(app, project_id='know-its-off-jsyg')
 
 from app import models
 from app.api import bp as api_bp
@@ -23,6 +29,11 @@ login_manager = LoginManager(app)
 #Is this supposed to be api.user, its supposed to define the route for login
 login_manager.login_view = 'api.login'
 login_manager.init_app(app)
+
+
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 #Returns 401 errors if you access pages while not logged in
 @login_manager.unauthorized_handler
@@ -41,15 +52,3 @@ def load_user(user_id):
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db.session.remove()
-
-#Issues temporary tokens
-def temp_token():
-    import binascii
-    temp_token = binascii.hexlify(os.urandom(24))
-    return temp_token.decode('utf-8')
-
-WEBHOOK_VERIFY_TOKEN = os.getenv('WEBHOOK_VERIFY_TOKEN')
-
-if WEBHOOK_VERIFY_TOKEN is None:
-        token = temp_token()
-        os.environ["WEBHOOK_VERIFY_TOKEN"] = token

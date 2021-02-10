@@ -44,12 +44,14 @@ def device_get_patch_delete_by_id(id):
         db.session.commit()
         returnValue = jsonify(myDevice.to_dict())
         db.session.close()
+        print(myDevice, " Updated")
         return returnValue, 200
     #Deletes device from database
     elif request.method == 'DELETE':
         db.session.delete(myDevice)
         db.session.commit()
         db.session.close()
+        print(myDevice, " Removed")
         return '', 204
 
 #This function gets all of the devices that the user owns.
@@ -88,6 +90,7 @@ def device_get_post():
         db.session.commit()
         returnValue = jsonify(new_device.to_dict())
         db.session.close()
+        print(new_device, " Added")
         return returnValue, 201
     elif request.method == 'GET':
         #Select *

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {CircleSpinner} from 'react-spinners-kit' ;
-import axiosBaseURL from '../axios.js'
-
-import {Redirect} from 'react-router-dom'
+import axiosBaseURL from '../axios.js';
+import { Redirect } from 'react-router-dom';
 
 var dbString
 
@@ -52,7 +51,8 @@ export default class editDevice extends Component {
       axiosBaseURL.patch(dbString, this.state.myDevice)
       .then((result) => {
          this.setState({loading: false});
-            alert("Device Updated Successfully!")
+            alert("Device Updated Successfully!");
+            this.props.history.push('/home');
       })
       .catch((error)=>{
          this.setState({loading:false, error:true})
@@ -68,6 +68,7 @@ export default class editDevice extends Component {
          .then((result) => {
             this.setState({redirect: '/home', loading: false});
             alert("Device Removed Successfully!");
+            this.props.history.push('/home');
          })
          .catch((error) => {
             this.setState({ error: true });
@@ -76,6 +77,7 @@ export default class editDevice extends Component {
                this.setState({error_response: error.response.data})
             }
          })
+         event.preventDefault();
       }
    };
    handleChangeDevice = (event) => { 
@@ -96,12 +98,12 @@ export default class editDevice extends Component {
             </div>)
 		}
 		return(
-<div className="m-5">
+<div className="m-5 text-light">
 <h3>Edit Device</h3>
 <form>
    <div className="form-group">
       <label>Appliance Name</label>
-      <input className="form-control" name="appliance_name" id="inputDeviceName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
+      <input className="form-control text-light" name="appliance_name" id="inputDeviceName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
    </div>
 
    <button onClick={this.updateDevice} className="btn btn-success">Update<CircleSpinner size={20} color="#3BBCE5" loading={this.state.loading} /></button>

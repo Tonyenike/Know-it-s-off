@@ -136,7 +136,7 @@ export default class EditUser extends Component {
          }
       const {detail_form, flag} = this.state;
       return(
-<div className="m-5">
+<div className="m-5 text-light">
 {flag && (
     <div color="red">Email or password incorrect</div>
 )}
@@ -152,8 +152,8 @@ export default class EditUser extends Component {
         <input className="form-control" name="password" id="inputPassword" type="password" onChange={this.handleChange} value={this.state.current.password}></input>
     </div>
 
-    <button onClick={this.verify} className="btn btn-success">Verify and Change User Details<CircleSpinner size={10} color="#3BBCE5" loading={this.state.verifyLoad} /></button>
-    <button onClick={this.delete} className="btn btn-danger">Delete User<CircleSpinner size={10} color="#3BBCE5" loading={this.state.deleteLoad} /></button>
+    <button onClick={this.verify} className="btn btn-success btn-space">Verify and Change User Details<CircleSpinner size={10} color="#3BBCE5" loading={this.state.verifyLoad} /></button>
+    <button onClick={this.delete} className="btn btn-danger btn-space">Delete User<CircleSpinner size={10} color="#3BBCE5" loading={this.state.deleteLoad} /></button>
 </form>
 {detail_form && (
     <form>
@@ -174,8 +174,8 @@ export default class EditUser extends Component {
         <div className="form-group">
             <label>Confirm Password</label>
             <input className="form-control" name="confirmPass" id="inputConfirmPass" type="password" onChange={this.handlePassChange} value={this.state.confirmPass} placeholder={this.state.confirmPass}/>
-            <button onClick={this.update} className="btn btn-success">Update Information<CircleSpinner size={10} color="#3BBCE5" loading={this.state.changeLoad} /></button>
         </div>
+        <button onClick={this.update} className="btn btn-success btn-space">Update Information<CircleSpinner size={10} color="#3BBCE5" loading={this.state.changeLoad} /></button>
     </form>
     )}
 </div>

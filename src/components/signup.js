@@ -39,7 +39,7 @@ handleChange = (event) => {
       			return (<div classNameName="d-flex justify-content-center m-5"><CircleSpinner size={60} color="#686769" loading={this.state.loading} /></div>)
 		}
 		return(
-<div className="mt-5 mb-5 container bg-light border">
+<div className="mt-5 mb-5 container bg-dark border">
 <div className="row justify-content-md-center mt-5">
 <h1>Sign up to Know It's Off</h1>
 </div>

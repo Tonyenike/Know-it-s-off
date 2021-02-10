@@ -1,5 +1,7 @@
 <<<<<<< HEAD
 # Special
+forever.txt
+nohup.out
 config.py
 constants.py
 migrations/

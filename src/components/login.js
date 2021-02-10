@@ -16,6 +16,7 @@ export default class Login extends Component {
     };
   }
   
+
   doLogin = (event) => {
 	  this.setState({postLoading:true});
 	  axiosBaseURL.post('/login', {email: this.state.email, password: this.state.password})
@@ -44,11 +45,11 @@ export default class Login extends Component {
     }
     const {flag} = this.state;
 		return(
-<div className="mt-5 mb-5 container bg-light border">
-<div className="row justify-content-md-center mt-5">
+<div className="mt-5 mb-5 container bg-dark border">
+<div className="row justify-content-md-center text-light mt-5">
 <h1>Log In to Know It's Off</h1>
 </div>
-<div className="row justify-content-md-center mb-5">
+<div className="row justify-content-md-center text-light mb-5">
 <form>
   <div className="form-group">
     {flag && (
@@ -56,7 +57,6 @@ export default class Login extends Component {
     )}
     <label>Email address</label>
     <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.handleChange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div className="form-group">
     <label>Password</label>

@@ -39,23 +39,16 @@ export default class Tile extends Component {
             </div>)
       }
       return(
-         <Card bg={this.state.background} className="tile text-center col">
+         <Card bg={this.state.background} className="tile text-center col ">
             <Card.Header>
                <CircularProgressbar value={this.state.device_battery} maxValue={1} text={`${this.state.device_battery}%`} styles={buildStyles({textSize: '2.2rem',textColor:'#000'})}/>
                <Card.Title className="card-title-device">{this.state.appliance_name}</Card.Title>
             </Card.Header>
             <Card.Body>
                <Card.Title className="card-title-status">{this.state.statusText}</Card.Title>
-               {/*<Card.Text className="card-text-type">{this.state.appliance_name}</Card.Text>*/}
                <Card.Text className="card-text-device_state">{this.state.state}</Card.Text>
                <Card.Text className="card-text-timestamp">Last Seen: {this.state.timestamp}</Card.Text>
                <Link className="card-button btn btn-primary text-wrap" to={"/device/"+this.state.device_id}>Details</Link>
-               {/*I was thinking about using a dropdown here instead so that you can delete a scout without having
-               to go to the edit scout page, which may not load if the appliance of the scout doesnt exist
-               <DropdownButton device_id="dropdown-button" title="Dropdown button">
-                  <Dropdown.Item href={"/scout/"+this.state.device_id}>Edit</Dropdown.Item>
-                  <Dropdown.Item onClick={this.deleteScout}>Delete</Dropdown.Item>
-               </DropdownButton>*/}
             </Card.Body>
          </Card>
       )

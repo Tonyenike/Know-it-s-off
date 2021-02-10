@@ -57,6 +57,7 @@ export default class addDevice extends Component {
          .then((result) => {
             this.setState({ myDevice: {...this.state.myDevice, id: result.data.id}, postLoading:false, revealDetails:true })
             alert("Device Creation Successful!");
+            this.props.history.push('/home');
          })
          .catch((error) => {
             this.setState({postLoading:false, error:true, error_response: error.response.data})
@@ -86,7 +87,7 @@ export default class addDevice extends Component {
       }
       const {revealDetails} = this.state;
 		return(
-<div className="m-5">
+<div className="m-5 text-light">
 <h3>New Device</h3>
 <form>
    <div className="form-group">

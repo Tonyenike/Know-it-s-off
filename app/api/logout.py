@@ -10,4 +10,4 @@ from app.api.auth import token_auth
 def logout():
     logout_user()
     db.session.close()
-    return redirect('/login')
+    return '', 204
