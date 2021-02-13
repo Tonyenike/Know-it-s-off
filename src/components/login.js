@@ -12,14 +12,15 @@ export default class Login extends Component {
 	    password: "",
       error: false,
       flag: false, 
-	    postLoading: false
+	    postLoading: false, 
+      remember: true
     };
   }
   
 
   doLogin = (event) => {
 	  this.setState({postLoading:true});
-	  axiosBaseURL.post('/login', {email: this.state.email, password: this.state.password})
+	  axiosBaseURL.post('/login', {email: this.state.email, password: this.state.password, remember: this.state.remember})
 	  .then(
 		  (result) =>{this.setState({postLoading: false, flag:false}); 
       this.props.history.push("/home"); 
@@ -35,6 +36,14 @@ export default class Login extends Component {
   };
    //trys to check if authenticated already and redirect
    //when logging out its a little slow so it authenticates and redirects too quickly
+
+  toggleCheckbox = () => {
+    this.setState(({ remember }) => (
+      {
+        remember: !remember
+      }
+    ));
+  }
 
 	render(){
 		if(this.state.error){
@@ -62,8 +71,12 @@ export default class Login extends Component {
     <label>Password</label>
     <input name="password" type="password" onChange={this.handleChange} value={this.state.password} className="form-control" id="exampleInputPassword1" placeholder="Password" />
   </div>
+  <div className="form-check">
+    <input class="form-check-input" type="checkbox" checked={this.state.remember} onChange={this.toggleCheckbox} id="checkbox"/>
+    <label className="form-check-label" for="checkbox">Remember Me</label>
+  </div>
   <button onClick={this.doLogin} className="btn btn-primary">Submit<CircleSpinner size={20} color="#3BBCE5" loading={this.state.postLoading} /></button>
-  <Link id="signupHelp" to="/signup" className="form-text text-muted">Don't have an account? Click here to sign up.</Link>
+  <Link id="signupHelp" to="/signup" className="form-text text-muted">Register New User</Link>
 </form>
 </div>
 </div>

@@ -10,6 +10,14 @@ import os, base64
 # has several columns -- the name of the appliance, its ID, the status of the appliance,
 # and its alert details.
 ##############
+class BatteryLogger(db.Model):
+    __name__ = "batterylogger"
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    device_id = db.Column(db.Integer, nullable = False)
+    timestamp_time = db.Column(db.TIMESTAMP, nullable = False)
+    device_battery = db.Column(db.Float, nullable=True) # May change from float later
+    #device = db.relationship('Device')
+
 
 class Device(db.Model):
     __name__ = "device"
@@ -19,6 +27,8 @@ class Device(db.Model):
     device_battery = db.Column(db.Float, nullable=True) # May change from float later
     timestamp = db.Column(db.TIMESTAMP, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+   # logs = relationship ("BatteryLogger", back_populates="addresses")
 
     #To dictionary functions are used to format the data to make it easier to JSONIFY    
     def to_dict(self):

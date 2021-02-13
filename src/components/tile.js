@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import Card from 'react-bootstrap/Card'
+import { ProgressBar } from 'react-bootstrap'; //https://react-bootstrap.github.io/components/progress/
 import {Link} from 'react-router-dom';
-import {CircularProgressbar} from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import {buildStyles} from 'react-circular-progressbar';
 import {CircleSpinner} from 'react-spinners-kit';
 
 export default class Tile extends Component {
@@ -15,7 +13,7 @@ export default class Tile extends Component {
       timestamp: this.props.timestamp, 
       statusText: "OFF",
       background: "light",
-      loading: true
+      loading: true,
    }
 
    componentDidMount() {
@@ -41,7 +39,6 @@ export default class Tile extends Component {
       return(
          <Card bg={this.state.background} className="tile text-center col ">
             <Card.Header>
-               <CircularProgressbar value={this.state.device_battery} maxValue={1} text={`${this.state.device_battery}%`} styles={buildStyles({textSize: '2.2rem',textColor:'#000'})}/>
                <Card.Title className="card-title-device">{this.state.appliance_name}</Card.Title>
             </Card.Header>
             <Card.Body>
@@ -49,6 +46,9 @@ export default class Tile extends Component {
                <Card.Text className="card-text-device_state">{this.state.state}</Card.Text>
                <Card.Text className="card-text-timestamp">Last Seen: {this.state.timestamp}</Card.Text>
                <Link className="card-button btn btn-primary text-wrap" to={"/device/"+this.state.device_id}>Details</Link>
+               <div className="progressBar">
+                  <ProgressBar max="100" min="0" animated variant="info" now={this.state.device_battery} label={`${this.state.device_battery}%`}/>
+               </div>
             </Card.Body>
          </Card>
       )

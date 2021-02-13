@@ -5,25 +5,22 @@ from app.models import User, Device
 from flask_login import login_required, current_user, login_user
 
 
+## TODO FUZZY MATCHING
 
-
-@assist.action('Initial')
+@assist.action('Status')
 def initial():
-    speech = "Please Provide your Email Address to Connect to Know It's Off"
+    speech = "What is your Appliance Name?"
     return ask(speech)
 
-@assist.action('Authentication')
-def auth(user_email):
-    print(user_email)
-    check_user = User.query.filter_by(email=user_email).first()
-    result = login_user(check_user, force=True)
-    db.session.close()
-    if result:
-        speech = "Which device Do you want to know the state of?"
-        return ask(speech), 204
-    else:
-        speech = "We couldn't find your email"
-        return tell(speech), 401
+@assist.action('Status - next')
+def initial(appliance):
+    myDevice = Device.query.filter_by(appliance_name=appliance).first()
+    if myDevice.device_state == 0:
+        status = "OFF"
+    elif myDevice.device_state == 1:
+        status = "ON"
+    speech = f"Your {myDevice.appliance_name} is {status}"
+    return ask(speech)
 
 ### Tutorial
 
