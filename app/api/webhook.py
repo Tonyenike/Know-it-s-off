@@ -3,9 +3,8 @@ from flask_assistant import Assistant, ask, tell
 from app import assist, db
 from app.models import User, Device
 from flask_login import login_required, current_user, login_user
+from fuzzywuzzy import process
 
-
-## TODO FUZZY MATCHING
 
 @assist.action('Status')
 def initial():
@@ -14,8 +13,17 @@ def initial():
 
 @assist.action('Status - next')
 def initial(appliance):
-    myDevice = Device.query.filter_by(appliance_name=appliance).first()
-    if myDevice.device_state == 0:
+
+    devices = Device.query.all()
+    appliance_names = []
+    for row in devices: 
+        appliance_names.append(row.appliance_name)
+
+    myDevice = process.extract(appliance, appliance_names, limit=1)
+    myDevice = Device.query.filter_by(appliance_name=myDevice[0][0]).first()
+    if myDevice == None: 
+        return tell("Device not found")
+    elif myDevice.device_state == 0:
         status = "OFF"
     elif myDevice.device_state == 1:
         status = "ON"

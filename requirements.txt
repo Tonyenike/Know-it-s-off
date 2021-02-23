@@ -10,11 +10,11 @@ dialogflow==1.1.0
 Flask==1.1.2
 Flask-Assistant==0.5.3
 Flask-Cors==3.0.10
-Flask-HTTPAuth==4.2.0
 Flask-Login==0.5.0
 Flask-Migrate==2.5.3
 flask-ngrok==0.0.25
 Flask-SQLAlchemy==2.4.4
+fuzzywuzzy==0.18.0
 google-api-core==1.25.1
 google-auth==1.25.0
 google-cloud-dialogflow==2.0.0
@@ -36,7 +36,9 @@ PySocks==1.7.1
 python-dateutil==2.8.1
 python-dotenv==0.15.0
 python-editor==1.0.4
+python-Levenshtein==0.12.2
 pytz==2021.1
+rauth==0.7.3
 requests==2.25.1
 requests-toolbelt==0.9.1
 rsa==4.7

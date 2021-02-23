@@ -5,7 +5,6 @@ from cerberus import Validator
 from app.models import User, Device
 from app.api import bp
 from app import db
-from app.api.auth import token_auth
 
 #Do we have to update user schema?
 #Used with the validator to ensure that the incoming data is a user
@@ -61,6 +60,8 @@ def user_get_patch_delete_by_id(id):
 @bp.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
+        #if g.user is not None and g.user.is_authenticated():
+            #return '', 204
         if not v.validate(request.get_json()):
             abort(400, description=v.errors)
         user_data = request.get_json()

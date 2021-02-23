@@ -2,7 +2,6 @@ from flask import redirect
 from flask_login import login_required, logout_user
 from app import db
 from app.api import bp
-from app.api.auth import token_auth
 
 #logs the user out
 @bp.route('/logout')

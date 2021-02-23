@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {CircleSpinner} from 'react-spinners-kit' 
 import axiosBaseURL from '../axios.js'
 
+
 export default class EditUser extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +21,8 @@ export default class EditUser extends Component {
             deleteLoad: false, 
             changeLoad: false, 
             error: false, 
-            redirect: null
+            redirect: null,
+            remember: true
         };
     }
 
@@ -48,7 +50,7 @@ export default class EditUser extends Component {
 
    verify = (event) => {
       this.setState({verifyLoad : true});
-      axiosBaseURL.post('/login', {email: this.state.current.email, password: this.state.current.password})
+      axiosBaseURL.post('/login', {email: this.state.current.email, password: this.state.current.password, remember: this.state.remember})
       .then((result) => {
          this.setState({verifyLoad: false, detail_form: true, flag: false});
       })
@@ -102,7 +104,7 @@ export default class EditUser extends Component {
          event.preventDefault();
       }
       else {
-         axiosBaseURL.post('/login', {email: this.state.current.email, password: this.state.current.password})
+         axiosBaseURL.post('/login', {email: this.state.current.email, password: this.state.current.password, remember: true})
          .then((result) => {
             axiosBaseURL.patch('/user/current', {email: this.state.current.email, password: this.state.confirmPass, username: this.state.current.username})
             .then((result) => {
@@ -144,12 +146,12 @@ export default class EditUser extends Component {
 <form>
     <div className="form-group">
         <label>Email</label>
-        <input className="form-control" name="email" id="inputEmail" type="email" onChange={this.handleChange} value={this.state.current.email}></input>
+        <input className="form-control text-dark" name="email" id="inputEmail" type="email" onChange={this.handleChange} value={this.state.current.email}></input>
     </div>
 
     <div className="form-group">
         <label>Password</label>
-        <input className="form-control" name="password" id="inputPassword" type="password" onChange={this.handleChange} value={this.state.current.password}></input>
+        <input className="form-control text-dark" name="password" id="inputPassword" type="password" onChange={this.handleChange} value={this.state.current.password}></input>
     </div>
 
     <button onClick={this.verify} className="btn btn-success btn-space">Verify and Change User Details<CircleSpinner size={10} color="#3BBCE5" loading={this.state.verifyLoad} /></button>
@@ -159,21 +161,21 @@ export default class EditUser extends Component {
     <form>
         <div className="form-group">
             <label>Change Username</label>
-            <input className="form-control" name="username" id="inputUsername" type="username" onChange={this.handleChange} value={this.state.current.username} placeholder={this.state.current.username}/>
+            <input className="form-control text-dark" name="username" id="inputUsername" type="username" onChange={this.handleChange} value={this.state.current.username} placeholder={this.state.current.username}/>
         </div>
         
         <div className="form-group">
             <label>Change Email</label>
-            <input className="form-control" name="email" id="inputEmail" type="email" onChange={this.handleChange} value={this.state.current.email} placeholder={this.state.current.email}/>
+            <input className="form-control text-dark" name="email" id="inputEmail" type="email" onChange={this.handleChange} value={this.state.current.email} placeholder={this.state.current.email}/>
         </div>
 
         <div className="form-group">
             <label>Change Password</label>
-            <input className="form-control" name="currentPass" id="inputCurrentPass" type="password" onChange={this.handlePassChange} value={this.state.currentPass} placeholder={this.state.currentPass}/>
+            <input className="form-control text-dark" name="currentPass" id="inputCurrentPass" type="password" onChange={this.handlePassChange} value={this.state.currentPass} placeholder={this.state.currentPass}/>
         </div>
         <div className="form-group">
             <label>Confirm Password</label>
-            <input className="form-control" name="confirmPass" id="inputConfirmPass" type="password" onChange={this.handlePassChange} value={this.state.confirmPass} placeholder={this.state.confirmPass}/>
+            <input className="form-control text-dark" name="confirmPass" id="inputConfirmPass" type="password" onChange={this.handlePassChange} value={this.state.confirmPass} placeholder={this.state.confirmPass}/>
         </div>
         <button onClick={this.update} className="btn btn-success btn-space">Update Information<CircleSpinner size={10} color="#3BBCE5" loading={this.state.changeLoad} /></button>
     </form>

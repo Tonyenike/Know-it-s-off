@@ -61,6 +61,7 @@ export default class Devices extends Component {
     					<p className="card-text">Battery: {this.state.myDevice.device_battery}%</p>
 						<p className="card-text">Last Seen: {this.state.myDevice.timestamp}</p>
     					<Link to={"/device/" + this.state.myDevice.id + "/edit"} className="btn btn-primary text-wrap">Modify device details</Link>
+						<Link to={"/device/" + this.state.myDevice.id + "/logs"} className="btn btn-success text-wrap float-right">Battery Logs</Link>
   				</div>
 			</div>
 			</div>

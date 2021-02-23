@@ -92,7 +92,7 @@ export default class addDevice extends Component {
 <form>
    <div className="form-group">
       <label>Appliance Name</label>
-      <input className="form-control" name="appliance_name" id="inputScoutName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
+      <input className="form-control text-dark" name="appliance_name" id="inputScoutName" aria-describedby="nameHelp" onChange={this.handleChangeDevice} value={this.state.myDevice.appliance_name} />
    </div>
 
    <button onClick={this.postData} className="btn btn-success">Add this device<CircleSpinner size={20} color="#3BBCE5" loading={this.state.postLoading} /></button>
