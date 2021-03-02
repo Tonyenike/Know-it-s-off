@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
+import React, { Component, useState } from 'react';
+import {Switch, Route, HashRouter as Router} from 'react-router-dom';
 import './App.css';
 import Logs from './components/logs';
 import MyNavbar from './components/navbar';
@@ -13,6 +13,31 @@ import addDevice from './components/addDevice';
 import editDevice from './components/editDevice';
 import Device from './components/device';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import firebase from "firebase";
+
+// //Firebase push notifications
+// const [isTokenFound, setTokenFound] = useState(false);
+// getToken(setTokenFound);
+// const messaging = firebase.messaging();
+
+
+// export const getToken = (setTokenFound) => {
+//   return messaging.getToken({vapidKey: 'GENERATED_MESSAGING_KEY'}).then((currentToken) => {
+//     if (currentToken) {
+//       console.log('current token for client: ', currentToken);
+//       setTokenFound(true);
+//       // Track the token -> client mapping, by sending to backend server
+//       // show on the UI that permission is secured
+//     } else {
+//       console.log('No registration token available. Request permission to generate one.');
+//       setTokenFound(false);
+//       // shows on the UI that permission is required 
+//     }
+//   }).catch((err) => {
+//     console.log('An error occurred while retrieving token. ', err);
+//     // catch error while creating client token
+//   });
+// }
 
 
 const NavRoute = ({exact, path, component: Component}) => (
@@ -23,6 +48,7 @@ const NavRoute = ({exact, path, component: Component}) => (
     </div>
   )}/>
 )
+
 
 class App extends Component {
   render() {

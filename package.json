@@ -11,6 +11,7 @@
     "bootstrap": "^4.6.0",
     "bootstrap-darkmode": "^0.7.0",
     "cookies": "^0.8.0",
+    "firebase": "^8.2.9",
     "js-cookie": "^2.2.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",
@@ -20,6 +21,7 @@
     "react-gesture-responder": "^2.1.0",
     "react-grid-dnd": "^2.1.2",
     "react-json-to-csv": "^1.0.4",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-spinners-kit": "^1.9.1",
@@ -51,7 +53,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://flip3.engr.oregonstate.edu:12324/api/",
   "main": "index.js",
   "repository": "http://github.com/Wilsondo/know-its-off.git",
   "license": "MIT"

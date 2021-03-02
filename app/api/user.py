@@ -69,7 +69,6 @@ def login():
         check_user = User.query.filter_by(email=user_email).first()
         if not check_user or not check_user.check_password(user_data['password']):
             abort(403, description="The credentials you entered were incorrect")
-        #print(user_data)
         result = login_user(check_user, remember=user_data['remember'])
         db.session.close()
         if result:
