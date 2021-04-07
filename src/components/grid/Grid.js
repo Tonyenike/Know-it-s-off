@@ -1,3 +1,9 @@
+/****************************************************************************************************
+ * FILENAME: Grid.jss
+ * DESCRIPTION: Declares parameters of grid for styling purposes
+ * AUTHOR(S): Capstone 2019-2020
+ * NOTES: This is depreciated
+ ****************************************************************************************************/
 import React from "react";
 import styled from "styled-components";
 

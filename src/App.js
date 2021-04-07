@@ -1,4 +1,15 @@
-import React, { Component, useState } from 'react';
+/****************************************************************************************************
+ * FILENAME: App.js
+ * DESCRIPTION: Create a react router that navigates the user throughout the application
+ * AUTHOR(S): Capstone 2020-2021 (Tyler Titsworth)
+ * NOTES: Don't use hooks with this layout, they just don't work with the react-router-dom library.
+ * CSS is Depreciated
+ ****************************************************************************************************/
+import React, { Component } from 'react';
+// This import defines the Router as a HashRouter, rather than a BrowserRouter
+// HashRouter uses browser cache to save the current and previous page data to allow for a user to navigate between them using their browser
+// A BrowserRouter uses HTML5 to cache page information, but doesn't work
+// URLs will be appended with a /#/ to signify that the hash router is working
 import {Switch, Route, HashRouter as Router} from 'react-router-dom';
 import './App.css';
 import Logs from './components/logs';
@@ -13,33 +24,8 @@ import addDevice from './components/addDevice';
 import editDevice from './components/editDevice';
 import Device from './components/device';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import firebase from "firebase";
 
-// //Firebase push notifications
-// const [isTokenFound, setTokenFound] = useState(false);
-// getToken(setTokenFound);
-// const messaging = firebase.messaging();
-
-
-// export const getToken = (setTokenFound) => {
-//   return messaging.getToken({vapidKey: 'GENERATED_MESSAGING_KEY'}).then((currentToken) => {
-//     if (currentToken) {
-//       console.log('current token for client: ', currentToken);
-//       setTokenFound(true);
-//       // Track the token -> client mapping, by sending to backend server
-//       // show on the UI that permission is secured
-//     } else {
-//       console.log('No registration token available. Request permission to generate one.');
-//       setTokenFound(false);
-//       // shows on the UI that permission is required 
-//     }
-//   }).catch((err) => {
-//     console.log('An error occurred while retrieving token. ', err);
-//     // catch error while creating client token
-//   });
-// }
-
-
+// Define NavRoute, which will instantiate a navigation bar in router elements with the 'NavRoute' definition
 const NavRoute = ({exact, path, component: Component}) => (
   <Route exact={exact} path={path} render={(props) => (
     <div>
@@ -48,9 +34,9 @@ const NavRoute = ({exact, path, component: Component}) => (
     </div>
   )}/>
 )
-
-
-class App extends Component {
+class App extends Component { // This class will render the entire navigation tree, all users who navigate will be brought to the Login.js file
+                              // Pages that can't be handleded will be brought to the default.js file, which presents a 404
+                              // :handle methods will pass in a variable like an interface id
   render() {
     return (
       <React.Fragment>
@@ -73,6 +59,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;

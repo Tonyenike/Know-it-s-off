@@ -1,3 +1,10 @@
+/****************************************************************************************************
+ * FILENAME: DragItem.js
+ * DESCRIPTION: Enable Tile dragging within the Drag-n-Drop Grid Context
+ * AUTHOR(S): Capstone 2019-2020
+ * NOTES: I wish it had comments so I knew what was going on. It looks like it enables drag properties, 
+ * but it's not clear how to customize this to increase clarity in dnd mechanics
+ ****************************************************************************************************/
 import React, { memo, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 

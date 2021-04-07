@@ -1,4 +1,4 @@
-from flask import request, abort, jsonify, Response, redirect
+from flask import request, abort, jsonify, Response, redirect, session, render_template
 from flask_login import login_required, current_user, login_user
 from flask_cors import cross_origin
 from cerberus import Validator
@@ -9,11 +9,22 @@ from app import db
 #Do we have to update user schema?
 #Used with the validator to ensure that the incoming data is a user
 user_schema = {
-                    "username": {"type": "string", "maxlength": 64, "nullable": True}, 
-                    "email": {"type": "string", "maxlength": 64, "nullable": True}
+                    "email": {"type": "string", "maxlength": 64, "nullable": False}
 }
 
 v = Validator(user_schema, allow_unknown=True)
+
+
+@bp.route('/user/check/<passw>', methods=['POST'])
+@login_required
+def check_pass(passw):
+    if current_user is None:
+        db.session.close()
+        abort(404, description="This user does not exist")
+    if current_user.check_password(passw):
+        return '', 204
+    else:
+        return '', 401
 
 #Multifunction route that does things depending on the user id
 @bp.route('/user/<id>', methods=['GET', 'PATCH', 'DELETE'])
@@ -24,13 +35,9 @@ def user_get_patch_delete_by_id(id):
         abort(404, description="This user does not exist")
     #Returns the specific User
     if request.method == 'GET':
-        #returnValue = jsonify(current_user.to_dict())
-        myList = []
-        test = User.query.filter_by(id = current_user.get_id())
-        for row in test:
-            myList.append(row.to_dict())
+        returnValue = jsonify(current_user.to_dict())
         db.session.close()
-        return jsonify(myList), 200
+        return returnValue, 200
     #Updates the user password
     elif request.method == 'PATCH':
         obj = request.get_json()
@@ -60,8 +67,6 @@ def user_get_patch_delete_by_id(id):
 @bp.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        #if g.user is not None and g.user.is_authenticated():
-            #return '', 204
         if not v.validate(request.get_json()):
             abort(400, description=v.errors)
         user_data = request.get_json()
@@ -69,12 +74,13 @@ def login():
         check_user = User.query.filter_by(email=user_email).first()
         if not check_user or not check_user.check_password(user_data['password']):
             abort(403, description="The credentials you entered were incorrect")
-        result = login_user(check_user, remember=user_data['remember'])
+        result = login_user(check_user)
         db.session.close()
         if result:
             return '', 204
         else:
             return 'Unauthorized', 401
+
 #Adds a new user
 @bp.route('/user', methods=['POST'])
 def user_post():

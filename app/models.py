@@ -10,12 +10,19 @@ import os, base64
 # has several columns -- the name of the appliance, its ID, the status of the appliance,
 # and its alert details.
 ##############
+
+
+
 class BatteryLogger(db.Model):
-    __name__ = "batterylogger"
+    __tablename__ = "battery_logger"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    device_id = db.Column(db.Integer, nullable = False)
+    #device_id = db.Column(db.Integer, db.ForeignKey('device.id', ondelete='CASCADE'))
+    #parent_device = db.relationship('device', backref=db.backref)
     timestamp_time = db.Column(db.TIMESTAMP, nullable = False)
-    device_battery = db.Column(db.Float, nullable=True) # May change from float later
+    device_battery = db.Column(db.Float, nullable=False) # May change from float later
+    device_id = db.Column(db.Integer, db.ForeignKey('device.id', ondelete='CASCADE'), nullable=False)
+
+    device = relationship("Device", backref = "battery_logger")
 
     def to_dict(self):
         return {c.key: getattr(self, c.key)
@@ -35,7 +42,8 @@ class Device(db.Model):
     device_state = db.Column(db.Integer, default=False, nullable=False)
     device_battery = db.Column(db.Float, nullable=True) # May change from float later
     timestamp = db.Column(db.TIMESTAMP, nullable=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'))
+    users = db.relationship('User', backref=db.backref('device', passive_deletes=True))
 
    # logs = relationship ("BatteryLogger", back_populates="addresses")
 
@@ -54,8 +62,7 @@ class Device(db.Model):
 class User(UserMixin, db.Model):
     __name__ = "user"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    password = db.Column(db.String(512), nullable=True)
-    username = db.Column(db.String(64), nullable=True)
+    password = db.Column(db.String(512), nullable=False)
     email = db.Column(db.String(64), nullable=False, unique=True)
     devices = db.relationship('Device', backref='owner', lazy='dynamic')
 
@@ -76,4 +83,4 @@ class User(UserMixin, db.Model):
     
     # This is how the object looks when printed out.
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.email)

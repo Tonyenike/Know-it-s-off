@@ -1,3 +1,9 @@
+/****************************************************************************************************
+ * FILENAME: logout.js
+ * DESCRIPTION: File serves as a redirection path to change the user login state
+ * AUTHOR(S): Capstone 2020-2021 (Tyler Titsworth)
+ * NOTES: 
+ ****************************************************************************************************/
 import React, {Component} from 'react'
 import { Redirect } from 'react-router-dom';
 import axiosBaseURL from '../axios.js'
@@ -14,21 +20,19 @@ export default class Logout extends Component {
     
    render(){
         if(this.state.error){
-            return(<div classNameName="m-5"><h3>There was an error</h3></div>)
+            return(<div className="m-5 text-light"><h3>Error 404, Page Not Found</h3></div>)
         }
-       // http call to /api/logout
-      axiosBaseURL.get('/logout')
+      axiosBaseURL.get('/logout') // Remove user login status
       .then(() => {
-         //this.props.history.push('/login');
-         
+         this.props.history.push('/login'); // Redirect to login page
       })
-      .catch(() => {
+      .catch(() => { // If for whatever reason this fails redirect to login anways
          return(   
-            <Redirect to={this.state.invalid} />
+            <Redirect to='/' />
          )
       })
       return(   
-         <Redirect to={this.state.invalid} />
+         <Redirect to='/' />
       )
     }
 }

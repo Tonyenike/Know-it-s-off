@@ -1,3 +1,10 @@
+/****************************************************************************************************
+ * FILENAME: GridContext.js
+ * DESCRIPTION: Create a Grid Context
+ * AUTHOR(S): Capstone 2019-2020
+ * NOTES: This is depreciated, and very messy. I wish I knew what was going on. We wanted to 
+ * replace this with just a library that does it for us
+ ****************************************************************************************************/
 import React, { Component, createContext } from "react";
 import Cookies from 'js-cookie';
 

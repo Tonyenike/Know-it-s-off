@@ -1,3 +1,9 @@
+/****************************************************************************************************
+ * FILENAME: GridApp.js
+ * DESCRIPTION: Generate a grid instance and map tiles for each device item
+ * AUTHOR(S): Capstone 2019-2020
+ * NOTES: All I did was change the item keys
+ ****************************************************************************************************/
 import React, { useContext} from "react";
 import DragItem from "./DragItem";
 import { Grid, GridItem } from "./Grid";

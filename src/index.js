@@ -1,3 +1,10 @@
+/****************************************************************************************************
+ * FILENAME: index.js
+ * DESCRIPTION: Insubstantiate the App.js file with the potential to invoke the grid and drag-n-drop 
+ * implementations
+ * AUTHOR(S): Capstone 2019-2020
+ * NOTES: This file is mandatory for react compilation. CSS is depriciated.
+ ****************************************************************************************************/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

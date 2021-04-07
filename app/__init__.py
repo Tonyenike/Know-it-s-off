@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_assistant import Assistant
+# from flask_assistant import Assistant
 from flask_ngrok import run_with_ngrok
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -9,18 +9,12 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='../build', static_url_path='/')
 app.config.from_object(Config)
-#app.config['OAUTH_CREDENTIALS'] = {
-#    'google': {
-#        'id': GOOGLE_CLIENT_ID, 
-#        'secret': SECRET_KEY
-#    }
-#}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db, compare_type=True)
 
 #Create our Assistant
-assist = Assistant(app, project_id='know-its-off-jsyg')
+# assist = Assistant(app, project_id='know-its-off-jsyg')
 
 from app import models
 from app.api import bp as api_bp
@@ -33,9 +27,7 @@ login_manager = LoginManager(app)
 #Is this supposed to be api.user, its supposed to define the route for login
 login_manager.login_view = 'api.login'
 login_manager.init_app(app)
-
-def send_js(path):
-    return send_from_directory('js', path)
+login_manager.session_protection = "strong"
 
 @app.route('/')
 def index():
